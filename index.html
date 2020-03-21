@@ -1,0 +1,203 @@
+<html>
+
+	<head>
+		<title>Adler Kavli Lecture November 2017</title>
+        <link rel="shortcut icon" href="icon.png">  
+
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Lato|Nunito|Material+Icons" rel="stylesheet">
+
+<!-- three.js resources -->		
+		<script src="resources/three.min.js"></script>
+		<script src="resources/dat.gui.js"></script>
+		<script src="resources/Detector.js"></script>
+		<script src="resources/TrackballControls.js"></script>
+		<script src="resources/KeyboardState.js"></script>
+		<script src="resources/THREEx.FullScreen.js"></script>
+		<script src="resources/THREEx.WindowResize.js"></script>
+		<script src="resources/THREE.MeshLine.js"></script>
+		<script src="resources/StereoEffect.js"></script>
+
+<!-- d3 -->
+	<script src="resources/d3.v4.10.2.min.js"></script>
+
+<!-- tween -->
+	<script src="resources/Tween.js"></script>
+
+
+	</head>
+
+	<body>
+		<div id="exoCircle" class="overCircle tooltipFade" style="display:none"></div>
+		<div id="exoTooltip" class="tooltip tooltipFade" style="font-size: 20px; display:none"></div>
+
+		<div id="stop" class="material-icons playstop" style="font-size: 200px; display:none">stop</div>
+		<div id="play" class="material-icons playstop" style="font-size: 200px; display:none">play_arrow</div>
+
+    	<div id="loader" style="background-color:black; position:absolute; top:0; bottom:0; left:0; right:0;" ></div>
+
+		<div id="ContentContainer" style="position: absolute; left:0px; top:0px"></div>
+
+
+		<div id="splash" >
+
+
+			<div id="instructionsDiv" style="visibility: hidden"> 
+				<div class="instructionsX" style="visibility: hidden"><a style="text-decoration: none;" href="javascript:hideSplash('#splash')">X</a></div>
+				<div class="prev" style="visibility: hidden"><a onclick="plusInstructions(-1)">&#10094;</a></div>
+				<div class="next" style="visibility: hidden"><a onclick="plusInstructions(1)">&#10095;</a></div>
+
+				<div id="instructionsPage1" class="myInstructions fade">
+					<div class="instructionsTitleContainer">
+						<div class="instructionsTitle">Data like you've never seen it before</div>
+					</div>
+					<div class="instructionsContent">
+
+
+						<p>The team behind the Adler Planetarium's <a href="http://kavlilectures.adlerplanetarium.org/">Kavli Fulldome Lecture Series</a> transforms real data sets into stunning, immersive visual experiences.</p>
+		 
+						<p>Here, for the first time, you can fly through the data any way you want to.</p>
+
+	
+						<div id="loader" style="font-size:50px">
+							<span>Loading</span>
+							<span class="loader__dot">.</span>
+							<span class="loader__dot">.</span>
+							<span class="loader__dot">.</span>
+						</div>
+
+
+						<p id="credits" style="position: absolute; bottom: 0px; font-size:10px; visibility:hidden"><b>Credits</b>: This WebGL application was written by <a href="http://faculty.wcas.northwestern.edu/aaron-geller/index.php" target="_blank">Aaron M. Geller</a>, using the three.js library.  Much of the concept and code for the exoplanet shaders was written by Mark SubbaRao, originally for the Uniview software. Patrick McPike contributed design elements.  Exoplanet data is drawn from  <a href="http://openexoplanetcatalogue.com/" target="_blank">the Open Exoplanet Catalogue</a>.  The background <a href="https://www.eso.org/public/usa/images/eso0932a/" target="_blank">Milky Way galaxy panorama image</a> is from ESO/S. Brunier. Source code available on <a href="https://github.com/ageller/Adler_Kavli_Lectures" target="_blank">our GitHub page.</a></p>
+
+
+					</div> 
+				</div>
+
+
+				<div id="instructionsPage2" class="myInstructions fade">
+					<div class="instructionsTitleContainer">
+						<div class="instructionsTitle">Exploring exoplanets with Dr. Lisa Kaltenegger</div>
+					</div>
+					<div class="instructionsContent">
+
+						<p> If there's life out there, it has to live somewhere. Scientists like Dr. Lisa Kaltenegger study exoplanets &mdash; planets outside our Solar System &mdash; in search of environments that might harbor life.</p>
+	 
+						<p>Using the same data displayed on our dome during Dr. Kaltenegger's lecture, <i>Are We Alone in the Universe?</i>, our team created this interactive exoplanet explorer.</p>
+	 
+						<p>You begin nearby to our Solar System, shown by the thin yellow, blue, red and purple lines in the center of the screen. The thicker circles all around you represent the orbits of exoplanets that scientists have observed orbiting other stars.  Fly around using your mouse (or touch device) to see where these planets are relative to us. </p>
+					</div>
+				</div>
+
+				<div id="instructionsPage3" class="myInstructions fade">
+					<div class="instructionsTitleContainer">
+						<div class="instructionsTitle">Choose Your Adventure</div>
+					</div>
+					<div class="instructionsContent">
+						<p id="splashButtonP" style="text-align:center; padding:0; margin-bottom:0px">Explore all the known exoplanets</p>
+						<button class="splashButton" onclick="showExop()">Exoplanet Discoveries</button>
+						
+						<p id="splashButtonP" style="text-align:center; padding:0; margin-top:20px; margin-bottom:0px">Visit the distant future of our Sun and Solar System</p>
+						<button class="splashButton" onclick="showSSEvol()">Solar System Evolution</button>
+						
+						<p id="splashButtonP" style="text-align:center; padding:0; margin-top:20px; margin-bottom:0px">Chart your own course! *</p>
+						<button class="splashButton" onclick="showFree()">Free Exploration</button>
+
+						<p id="splashButtonP" style="margin-top:50px; font-size:10px; text-align:center">* Only the first two adventures contain a control panel with many additional ways to interact with the data</p>
+
+						<div style="display:none" id="ExopInstructions">
+							<p class="InstructionsSubTitle"> Exoplanet Discoveries: </p>
+							<p> Find out where <a href="https://en.wikipedia.org/wiki/Exoplanet" target="_blank">exoplanets</a> are relative to us, how big they are, how and when they were discovered, and which ones are in the <a href="https://en.wikipedia.org/wiki/Circumstellar_habitable_zone" target="_blank">habitable zones</a> of their host stars.</p>
+
+							<p>Click (or touch) and drag to fly around.</p>
+
+							<p>Scroll (or pinch) to zoom in and out.</p>
+
+							<p>Double click on an exoplanet to show the name of its host star, with a link to its page on <a href="http://openexoplanetcatalogue.com/" target="_blank">the Open Exoplanet Catalogue</a>. (This feature is currently not available on mobile devices.)</p>
+
+							<p> Use the Control Panel on the right to see the data in a different way.</p>
+							<ul>
+								<li>The "Controller" section lets you jump forward or backward in time. Use the slider to see when the exoplanets were discovered!</li>
+								<li style="margin-top:10px">Change how the exoplanets are displayed by changing the "Marker Color" or "Marker Type." The Orrery Marker Type shows where each exoplanet is in its orbit at any given time.</li>
+								<li style="margin-top:10px">The "Legend" section explains what the exoplanet "Marker Colors" mean.</li>
+								<li style="margin-top:10px">Change your perspective, see which exoplanets were discovered over time, or jump to any exoplanet system with a planet within its star's habitable zone, with the "Tours" section. </li>
+								<li style="margin-top:10px">The "Extra Controls" section gives you many expert controls that we use at the Adler. Check them out!</li>
+							</ul>
+
+							<p> You can always click the "Home" button in the upper right, or type "q" to choose a different journey. </p>
+
+						</div>
+
+						<div style="display:none" id="SSInstructions">
+							<p class="InstructionsSubTitle"> Solar System Evolution: </p>
+							<p> Follow our Solar System billions of years into the future as the <a href="https://en.wikipedia.org/wiki/Stellar_evolution" target="_blank">Sun evolves</a> from its current stage into a red giant, an asymptotic giant, and eventually a white dwarf.</p>
+
+							<p>The green band around the Sun shows the <a href="https://en.wikipedia.org/wiki/Circumstellar_habitable_zone" target="_blank">habitable zone</a>: the distance from the Sun that a planet would have to be to have liquid water on its surface (and therefore to potentially support life as we know it). Earth is in the habitable zone for now, but for how long? Click through to find out!</p>
+
+							<p>Click (or touch) and drag to fly around.</p>
+
+							<p>Scroll (or pinch) to zoom in and out.</p>
+
+							<p>Use the Control Panel on the right to see the data in a different way.</p>
+							<ul>
+								<li>The "Controller" section lets you jump forward or backward in time. Use the slider to watch how the Sun and the planet orbits change as the Sun lives out the rest of its life.</li>
+								<li style="margin-top:10px">With the "Tours" section, you can enter your view on our Solar System or watch our Sun and Solar System change over the next few billion years.</li>
+								<li style="margin-top:10px">The "Extra Controls" section gives you many expert controls that we use at the Adler. Check them out!</li>
+							</ul>
+
+							<p> You can always click the "Home" button in the upper right, or type "q" to choose a different journey. </p>						
+						</div>
+
+						<div style="display:none" id="FreeInstructions">
+							<p class="InstructionsSubTitle"> Free Exploration: </p>
+							<p> Click (or touch) and drag to fly around, scroll (or pinch) to zoom in and out, and discover where exoplanets are relative to us. </p>
+
+							<p>Double click on an exoplanet to show the name of its host star, with a link to its page on <a href="http://openexoplanetcatalogue.com/" target="_blank">the Open Exoplanet Catalogue</a>. (This feature is currently not available on mobile devices.)</p>
+
+							<p> You can always click the "Home" button in the upper right, or type "q" to choose a different journey. (The other adventures allow you to manipulate the data even more!) </p>
+
+						</div>
+
+						<button id="GoButton" class="splashButton" onclick="hideSplash('#splash')" style="display:none">Go!</button>
+
+					</div>
+				</div>
+
+				<!-- circles -->
+				<div class="dotDiv" style="visibility:hidden">
+					<span class="dot" onclick="currentInstructions(1)"></span> 
+					<span class="dot" onclick="currentInstructions(2)"></span> 
+					<span class="dot" onclick="currentInstructions(3)"></span> 
+				</div>
+			</div>
+		</div>
+
+		<!-- shaders -->
+	    <script src="shaders/vertex.glsl.js"></script>
+	    <script src="shaders/SunVertex.glsl.js"></script>
+	    <script src="shaders/exoplanetVertex.glsl.js"></script>
+	    <script src="shaders/MWVertex.glsl.js"></script>
+	    <script src="shaders/HZFragment.glsl.js"></script>
+	    <script src="shaders/coronaFragment.glsl.js"></script>
+	    <script src="shaders/SunFragment.glsl.js"></script>
+	    <script src="shaders/exoplanetFragment.glsl.js"></script>
+	    <script src="shaders/MWFragment.glsl.js"></script>
+	    <script src="shaders/MWTexFragment.glsl.js"></script>
+
+		<!-- the main attraction -->
+		<script src="js/utils.js"></script>
+		<script src="js/drawSun.js"></script>
+		<script src="js/drawSolarSystemPlanets.js"></script>
+		<script src="js/drawHZ.js"></script>
+		<script src="js/drawMilkyWay.js"></script>
+		<script src="js/drawExoplanets.js"></script>
+		<script src="js/renderAll.js"></script>
+		<script src="js/init.js"></script>
+
+
+	</body>
+
+
+
+
+</html>

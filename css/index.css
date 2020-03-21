@@ -1,0 +1,242 @@
+body{ 
+	margin: 0; 
+	font-family: 'Nunito', sans-serif;
+}
+
+canvas{
+	width: 100%; 
+	height: 100% 
+}
+
+a{
+    color: #FFF008;
+}
+a:visited{
+    color: #FFF008;
+} 
+
+.playstop{
+    position:absolute;
+    top:50%;
+    left:50%;
+    height:200px;
+    width: 200px;
+    padding: 0px;
+    margin: 0px;
+    margin-left:-100px;
+    margin-top:-100px;
+	z-index: 4;
+	color: #FFF008;
+	background-color:none;
+	text-align: center;
+	border: 2px solid #FFF008;
+	border-radius: 5%;
+	opacity: 0.0;
+	display: none;
+}
+
+.overCircle{
+	position:absolute;
+	height:20px;
+	width: 20px;
+	padding: 0px;
+	margin: 0px;
+	z-index: 5;
+	background-color: #FFF008;
+	text-align: center;
+	border-radius: 50%;
+	/*opacity: 0.0;
+	display: none;*/
+}
+.tooltip{
+	position:absolute;
+	height:auto;
+	width: auto;
+	padding: 10px;
+	margin: 0px;
+	z-index: 4;
+	color: white;
+	background-color: rgba(0,0,0,0.5);
+	text-align: center;
+	border: 2px solid #FFF008;
+	border-radius: 10%;
+	/*opacity: 0.0;
+	display: none;*/
+}
+#splash{
+	position:absolute; 
+	top:0; 
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:3;
+	margin:0;
+	padding:0;
+	color:white;
+	background-color:black;
+	font-family: 'Nunito', sans-serif;
+	text-align: center;
+	font-size:20px;
+	font-size:10vw;
+	opacity: 0.8;
+	/*cursor: pointer;*/
+}
+
+
+.splashButton {
+	background-color: #FFF008;
+	border: 2px solid #FFF008;
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition: background-color 0.4s ease;
+    cursor: pointer;
+    width:250px;
+    margin-left:75px;
+}
+.splashButton:hover {
+    background-color: black;
+    color: white;
+}
+
+#loader {
+	display: table;
+	margin: 0 auto;
+}
+
+/* https://codepen.io/chrisnager/pen/yfwgE */
+@keyframes blink {50% { color: transparent }}
+.loader__dot { animation: 1s blink infinite }
+.loader__dot:nth-child(2) { animation-delay: 250ms }
+.loader__dot:nth-child(3) { animation-delay: 500ms }
+
+#instructionsDiv {
+    position:absolute;
+    left:50%;
+    top:5px;
+	border: 2px solid #FFF008;
+	height:90%;
+	width:480px;
+	margin-left:-240px;
+	z-index:4;
+	padding:10px;
+	color:white;
+	background-color:black;
+	text-align: left;
+	font-size:16px;
+	opacity: 0.9;
+}
+
+.instructionsTitleContainer {
+	margin-bottom:10px; 
+	min-height:60px;
+}
+.instructionsTitle{
+	top:0; 
+	font-size:46px; 
+	text-align: center;
+	font-family: 'Josefin Sans', sans-serif;
+/*	font-family: 'Lato', sans-serif;*/
+}
+.instructionsSubTitle{
+	font-size: 30px;
+	font-family: 'Josefin Sans', sans-serif;
+
+}
+.instructionsX{
+	position:absolute;
+	top:5px; 
+	left:5px; 
+	color:#FFF008;
+}
+.instructionsContent{
+	position:relative;
+	overflow-y:auto;
+	height:50px;
+	min-height:50px;
+	padding:5px;
+}
+
+.myInstructions {
+	display: none;
+	height:95%;
+	width:400px;
+	padding-left:40px;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+	position:absolute;
+	top:50%; 
+	left:5; 
+	color:#FFF008;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 40px;
+	color:#FFF008;
+
+}
+
+/* Position the "next button" to the right */
+.next{
+	left:475px;
+}
+
+
+
+/* The dots/bullets/indicators */
+.dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #000000;
+	border-radius: 50%;
+	border: 2px solid #666666;
+	display: inline-block;
+	transition: background-color 0.3s ease;
+	z-index: 4;
+}
+
+.active, .dot:hover {
+  background-color: #FFF008;
+}
+.dotDiv{
+	text-align:center; 
+	height:20px; 
+	position:absolute; 
+	bottom:10px;
+	width:480px;
+	margin-left:-240px;
+	left:50%; 
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+
+/* On smaller screens, decrease text size */
+/*
+@media only screen and (max-width: 300px) { 
+  .prev, .next,. {font-size: 11px}
+}
+*/
